@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday, Zayd!</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+      transition: background 1s ease;
+    }
+
+    .container {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      font-size: 4rem;
+      margin: 0;
+      animation: bounce 2s infinite;
+    }
+
+    p {
+      font-size: 1.5rem;
+      margin: 10px 0;
+    }
+
+    .heart {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      background: #ff6f61;
+      transform: rotate(-45deg);
+      animation: heartbeat 1.5s infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #ff6f61;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      top: 0;
+      left: 10px;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% {
+        transform: scale(1) rotate(-45deg);
+      }
+      50% {
+        transform: scale(1.2) rotate(-45deg);
+      }
+    }
+
+    .balloon {
+      position: absolute;
+      bottom: -10%;
+      width: 50px;
+      height: 70px;
+      background: #ff6f61;
+      border-radius: 50%;
+      animation: float 6s infinite ease-in;
+    }
+
+    .balloon::before {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      width: 2px;
+      height: 50px;
+      background: #000;
+    }
+
+    .balloon:nth-child(2) {
+      left: 20%;
+      background: #ffcc5c;
+      animation-duration: 8s;
+    }
+
+    .balloon:nth-child(3) {
+      left: 40%;
+      background: #88d8b0;
+      animation-duration: 7s;
+    }
+
+    .balloon:nth-child(4) {
+      left: 60%;
+      background: #ff6f61;
+      animation-duration: 9s;
+    }
+
+    .balloon:nth-child(5) {
+      left: 80%;
+      background: #ffcc5c;
+      animation-duration: 6.5s;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-100vh);
+      }
+      100% {
+        transform: translateY(-100vh);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .button {
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 10px;
+      background: #ff6f61;
+      color: #fff;
+    }
+
+    .button:hover {
+      background: #ffcc5c;
+    }
+
+    .flowers {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      background: url('https://in.pinterest.com/pin/281543721352783/') repeat;
+      animation: flowers 10s linear infinite;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    @keyframes flowers {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-100%);
+      }
+    }
+
+    .black-screen {
+      background: #000;
+      color: #fff;
+    }
+
+    .final-screen {
+      background: #fff;
+      color: #000;
+    }
+
+    .confetti {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Initial Screen -->
+  <div id="initial-screen" class="container">
+    <h1>Happy Birthday, Zayd!</h1>
+    <p>You are the most amazing person I know. Wishing you a day filled with love and joy!</p>
+    <div class="heart"></div>
+  </div>
+
+  <!-- Second Screen -->
+  <div id="second-screen" class="container hidden">
+    <h1>I Made Something for You!</h1>
+    <p>Do you want to see it?</p>
+    <button id="yes-button" class="button">Yes</button>
+    <button id="no-button" class="button">No</button>
+  </div>
+
+  <!-- Third Screen (If No is Pressed) -->
+  <div id="no-screen" class="container hidden">
+    <h1>Please See It Once!</h1>
+    <button id="go-back-button" class="button">Go Back</button>
+  </div>
+
+  <!-- Fourth Screen (If Yes is Pressed) -->
+  <div id="yes-screen" class="container hidden">
+    <h1>Turn On the Light!</h1>
+    <button id="light-button" class="button">Turn On</button>
+  </div>
+
+  <!-- Final Screen -->
+  <div id="final-screen" class="container hidden final-screen">
+    <h1>Happy Birthday, Zayd!</h1>
+    <p>You are the most special person in my life. Wishing you endless happiness!</p>
+    <div class="flowers"></div>
+    <div class="confetti" id="confetti"></div>
+  </div>
+
+  <!-- Balloons -->
+  <div class="balloon"></div>
+  <div class="balloon"></div>
+  <div class="balloon"></div>
+  <div class="balloon"></div>
+  <div class="balloon"></div>
+
+  <!-- Birthday Tone -->
+  <audio id="birthday-tone" loop>
+    <source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-528.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    const initialScreen = document.getElementById('initial-screen');
+    const secondScreen = document.getElementById('second-screen');
+    const noScreen = document.getElementById('no-screen');
+    const yesScreen = document.getElementById('yes-screen');
+    const finalScreen = document.getElementById('final-screen');
+    const yesButton = document.getElementById('yes-button');
+    const noButton = document.getElementById('no-button');
+    const goBackButton = document.getElementById('go-back-button');
+    const lightButton = document.getElementById('light-button');
+    const birthdayTone = document.getElementById('birthday-tone');
+    const flowers = document.querySelector('.flowers');
+    const confettiElement = document.getElementById('confetti');
+
+    // Initial delay for the second screen
+    setTimeout(() => {
+      initialScreen.classList.add('hidden');
+      secondScreen.classList.remove('hidden');
+    }, 5000);
+
+    // Yes button clicked
+    yesButton.addEventListener('click', () => {
+      secondScreen.classList.add('hidden');
+      yesScreen.classList.remove('hidden');
+      document.body.classList.add('black-screen');
+    });
+
+    // No button clicked
+    noButton.addEventListener('click', () => {
+      secondScreen.classList.add('hidden');
+      noScreen.classList.remove('hidden');
+    });
+
+    // Go back button clicked
+    goBackButton.addEventListener('click', () => {
+      noScreen.classList.add('hidden');
+      secondScreen.classList.remove('hidden');
+    });
+
+    // Light button clicked
+    lightButton.addEventListener('click', () => {
+      yesScreen.classList.add('hidden');
+      finalScreen.classList.remove('hidden');
+      document.body.style.backgroundColor = '#fff';
+      flowers.style.opacity = 1;
+      birthdayTone.play();
+
+      // Confetti effect
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+      });
+    });
+  </script>
+</body>
+</html>
